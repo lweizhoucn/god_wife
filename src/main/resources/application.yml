@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://101.132.106.146:9630/god_wife?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    username: spider_magic
+    password: Spider_@2021@_Magic
+    hikari:
+      pool-name: Retail_HikariCP
+      minimum-idle: 5
+      idle-timeout: 180000
+      maximum-pool-size: 10
+      auto-commit: true
+      max-lifetime: 30000
+      connection-timeout: 30000
+  data:
+    rest:
+      basePath: /god
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: mysql
+    database-platform:  org.hibernate.dialect.MySQL8Dialect
+
+server:
+  port: 8080
