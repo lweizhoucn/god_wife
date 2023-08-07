@@ -1,7 +1,7 @@
 package com.lweizhou.cai.godwife.dao.model;
 
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicUpdate;
@@ -11,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @EntityListeners(AuditingEntityListener.class)
@@ -31,11 +32,11 @@ public class SkuInfo {
 
     @Comment("商品截至时间")
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime closeTime;
+    private Date closeTime;
 
     @Comment("商品送达日期")
     @Temporal(TemporalType.DATE)
-    private LocalDate sendDate;
+    private Date sendDate;
 
     private String description;
 

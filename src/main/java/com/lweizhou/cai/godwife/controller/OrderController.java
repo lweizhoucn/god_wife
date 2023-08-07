@@ -32,4 +32,16 @@ public class OrderController {
         OrderInfo cl = orderService.add(orderInfo);
         return cl != null ? ResultInfo.success() : ResultInfo.fail();
     }
+
+    @PostMapping("update")
+    public ResultInfo<OrderInfo> update(@RequestBody OrderRequest orderInfo) {
+        OrderInfo cl = orderService.add(orderInfo);
+        return cl != null ? ResultInfo.success() : ResultInfo.fail();
+    }
+
+    @PostMapping("delete")
+    public ResultInfo<OrderInfo> delete(@RequestBody OrderRequest orderInfo) {
+        OrderInfo cl = orderService.add(orderInfo);
+        return cl != null ? ResultInfo.success() : ResultInfo.fail();
+    }
 }

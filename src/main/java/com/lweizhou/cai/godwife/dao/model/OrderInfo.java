@@ -1,6 +1,6 @@
 package com.lweizhou.cai.godwife.dao.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicUpdate;
@@ -30,7 +30,7 @@ public class OrderInfo {
     @JoinColumn(name="client_id", updatable=false)
     private ClientInfo clientInfo;
 
-    @ManyToOne()
+    @ManyToOne(optional = false)
     @JoinColumn(name="sku_id", updatable=false)
     private SkuInfo skuInfo;
 
@@ -44,10 +44,10 @@ public class OrderInfo {
      * 订单时间，用于查看当天订单的信息
      */
     @Temporal(TemporalType.DATE)
-    private LocalDate orderDate;
+    private Date orderDate;
 
     @Temporal(TemporalType.DATE)
-    private LocalDate sendDate;
+    private Date sendDate;
 
     private int state;
 

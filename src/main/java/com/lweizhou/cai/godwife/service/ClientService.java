@@ -5,11 +5,6 @@ import com.lweizhou.cai.godwife.dao.model.ClientInfo;
 import com.lweizhou.cai.godwife.model.PageResultInfo;
 import com.lweizhou.cai.godwife.model.ResultInfo;
 import com.lweizhou.cai.godwife.model.request.ClientRequest;
-import jakarta.annotation.Resource;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,9 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ClientService {

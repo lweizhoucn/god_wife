@@ -5,8 +5,6 @@ import com.lweizhou.cai.godwife.dao.model.ClientInfo;
 import com.lweizhou.cai.godwife.dao.model.SkuInfo;
 import com.lweizhou.cai.godwife.model.PageResultInfo;
 import com.lweizhou.cai.godwife.model.request.SkuRequest;
-import jakarta.annotation.Resource;
-import jakarta.persistence.criteria.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +12,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.persistence.criteria.Predicate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -53,8 +56,8 @@ public class SkuService {
         skuInfo.setName(skuRequest.getName());
         skuInfo.setPrice(skuRequest.getPrice());
         skuInfo.setDescription(skuRequest.getDescription());
-        skuInfo.setCloseTime(skuRequest.getCloseTime());
-        skuInfo.setSendDate(skuRequest.getSendDate());
+        skuInfo.setCloseTime(Date.from(skuRequest.getCloseTime().toInstant(ZoneOffset.UTC)));
+        skuInfo.setSendDate(Date.from(skuRequest.getSendDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         skuInfo.setState(skuRequest.getState());
         return skuDao.save(skuInfo);
     }
