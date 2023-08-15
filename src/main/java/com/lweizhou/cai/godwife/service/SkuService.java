@@ -10,12 +10,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.persistence.criteria.Predicate;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,12 +34,13 @@ public class SkuService {
         Specification<SkuInfo> specification = (root, query, cb) -> {
             List<Predicate> list = new ArrayList<>();
             if (request.getState() != null && request.getState() >= 0) {
-                list.add(
-                        cb.equal(root.get("state"), request.getState()));
+                list.add(cb.equal(root.get("state"), request.getState()));
             }
             if (StringUtils.isNotEmpty(request.getName())) {
-                list.add(
-                        cb.like(root.get("name"), "%" + request.getName() + "%"));
+                list.add(cb.like(root.get("name"), "%" + request.getName() + "%"));
+            }
+            if (request.getSendDate() != null) {
+                list.add(cb.equal(root.get("sendDate"), Date.from(request.getSendDate().atStartOfDay(ZoneId.systemDefault()).toInstant())));
             }
             return query.where(list.toArray(new Predicate[0])).getRestriction();
         };
@@ -56,8 +59,12 @@ public class SkuService {
         skuInfo.setName(skuRequest.getName());
         skuInfo.setPrice(skuRequest.getPrice());
         skuInfo.setDescription(skuRequest.getDescription());
-        skuInfo.setCloseTime(Date.from(skuRequest.getCloseTime().toInstant(ZoneOffset.UTC)));
-        skuInfo.setSendDate(Date.from(skuRequest.getSendDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        if (skuRequest.getCloseTime() != null) {
+            skuInfo.setCloseTime(Date.from(skuRequest.getCloseTime().toInstant(ZoneOffset.UTC)));
+        }
+        if (skuRequest.getSendDate() != null) {
+            skuInfo.setSendDate(Date.from(skuRequest.getSendDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        }
         skuInfo.setState(skuRequest.getState());
         return skuDao.save(skuInfo);
     }

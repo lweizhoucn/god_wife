@@ -10,7 +10,6 @@ import com.lweizhou.cai.godwife.model.request.OrderRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
@@ -33,14 +32,13 @@ public class OrderService {
     }
 
     public OrderInfo add(OrderRequest orderRequest) {
-
-
         Long skuId = orderRequest.getSkuId();
         SkuInfo skuInfo = skuDao.findById(skuId).orElseThrow( IllegalArgumentException::new);
         Long clientId = orderRequest.getClientId();
         ClientInfo clientInfo = clientDao.findById(clientId).orElseThrow(IllegalArgumentException::new);
         double price = skuInfo.getPrice() * orderRequest.getOrderCount();
         OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setId(orderRequest.getId());
         orderInfo.setSkuInfo(skuInfo);
         orderInfo.setClientInfo(clientInfo);
         orderInfo.setOrderPrice(price);

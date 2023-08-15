@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://101.132.106.146:9630/god_wife?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-    username: spider_magic
-    password: Spider_@2021@_Magic
+    url: jdbc:mysql://182.92.226.136:3306/god_wife?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    username: admin
+    password: god_wife_123_@_!
     hikari:
       pool-name: Retail_HikariCP
       minimum-idle: 5
