@@ -15,7 +15,7 @@ spring:
   data:
     rest:
       basePath: /god
-  jpa:q
+  jpa:
     hibernate:
       ddl-auto: update
     show-sql: false
