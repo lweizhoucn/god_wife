@@ -36,7 +36,7 @@ public class SkuController {
     }
 
     @PostMapping("update")
-    public ResultInfo<ClientInfo> update(@RequestBody SkuRequest request) {
+    public ResultInfo<SkuInfo> update(@RequestBody SkuRequest request) {
 
         if (request.getId() == null) {
             return ResultInfo.fail("sku id is null");
@@ -50,7 +50,7 @@ public class SkuController {
     }
 
     @GetMapping("delete")
-    public ResultInfo<ClientInfo> delete(Long id) {
+    public ResultInfo<SkuInfo> delete(Long id) {
         if (id == null) {
             return ResultInfo.fail("client id is null");
         }

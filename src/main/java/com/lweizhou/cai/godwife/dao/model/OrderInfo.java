@@ -8,7 +8,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -27,11 +26,11 @@ public class OrderInfo {
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name="client_id", updatable=false)
+    @JoinColumn(name="client_id", updatable=true)
     private ClientInfo clientInfo;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name="sku_id", updatable=false)
+    @JoinColumn(name="sku_id", updatable=true)
     private SkuInfo skuInfo;
 
     @Comment("订单数量")

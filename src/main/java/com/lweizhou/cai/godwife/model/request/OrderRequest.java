@@ -10,6 +10,7 @@ public class OrderRequest {
     private Long id;
     private Long clientId;
     private Long skuId;
+    private Integer state;
     private Integer orderCount;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate sendDate;

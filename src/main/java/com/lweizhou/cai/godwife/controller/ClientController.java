@@ -1,6 +1,7 @@
 package com.lweizhou.cai.godwife.controller;
 
 import com.lweizhou.cai.godwife.dao.model.ClientInfo;
+import com.lweizhou.cai.godwife.model.ClientResponse;
 import com.lweizhou.cai.godwife.model.ResultInfo;
 import com.lweizhou.cai.godwife.model.request.ClientRequest;
 import com.lweizhou.cai.godwife.service.ClientService;
@@ -19,7 +20,7 @@ public class ClientController {
     }
 
     @GetMapping("list")
-    public ResultInfo<ClientInfo> list(ClientRequest clientRequest) {
+    public ResultInfo<ClientResponse> list(ClientRequest clientRequest) {
         return clientService.list(clientRequest);
     }
 

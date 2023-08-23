@@ -41,7 +41,7 @@ public class OrderController {
 
     @PostMapping("delete")
     public ResultInfo<OrderInfo> delete(@RequestBody OrderRequest orderInfo) {
-        OrderInfo cl = orderService.add(orderInfo);
-        return cl != null ? ResultInfo.success() : ResultInfo.fail();
+        boolean cl = orderService.delete(orderInfo);
+        return cl ? ResultInfo.success() : ResultInfo.fail();
     }
 }

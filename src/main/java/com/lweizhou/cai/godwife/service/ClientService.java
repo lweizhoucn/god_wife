@@ -1,11 +1,14 @@
 package com.lweizhou.cai.godwife.service;
 
 import com.lweizhou.cai.godwife.dao.ClientDao;
+import com.lweizhou.cai.godwife.dao.OrderDao;
 import com.lweizhou.cai.godwife.dao.model.ClientInfo;
+import com.lweizhou.cai.godwife.model.ClientResponse;
 import com.lweizhou.cai.godwife.model.PageResultInfo;
 import com.lweizhou.cai.godwife.model.ResultInfo;
 import com.lweizhou.cai.godwife.model.request.ClientRequest;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,8 +25,10 @@ public class ClientService {
 
     @Resource
     private ClientDao clientDao;
+    @Resource
+    private OrderDao orderDao;
 
-    public PageResultInfo<ClientInfo> list(ClientRequest request) {
+    public PageResultInfo<ClientResponse> list(ClientRequest request) {
         Pageable pageRequest = PageRequest.of(Math.max(request.getCurrent() - 1, 0), request.getPageSize());
         Specification<ClientInfo> specification = (root, query, cb) -> {
             List<Predicate> list = new ArrayList<>();
@@ -51,10 +56,20 @@ public class ClientService {
         };
         Page<ClientInfo> page = clientDao.findAll(specification, pageRequest);
         List<ClientInfo> list = page.getContent();
-        PageResultInfo<ClientInfo> resultInfo = PageResultInfo.ofList(list, page.getTotalElements());
+
+        List<ClientResponse> clientResponses = new ArrayList<>();
+        for (ClientInfo clientInfo : list) {
+            ClientResponse clientResponse = new ClientResponse();
+            BeanUtils.copyProperties(clientInfo,clientResponse);
+            clientResponse.setHistoryOrderCount(orderDao.countByClientInfo(clientInfo));
+            clientResponses.add(clientResponse);
+        }
+
+        PageResultInfo<ClientResponse> resultInfo = PageResultInfo.ofList(clientResponses, page.getTotalElements());
         resultInfo.setTotal(page.getTotalElements());
         resultInfo.setPageSize(request.getPageSize());
         resultInfo.setCurrent(request.getCurrent());
+
         return resultInfo;
     }
 

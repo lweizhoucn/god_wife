@@ -15,10 +15,10 @@ spring:
   data:
     rest:
       basePath: /god
-  jpa:
+  jpa:q
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     database: mysql
     database-platform:  org.hibernate.dialect.MySQL8Dialect
 
